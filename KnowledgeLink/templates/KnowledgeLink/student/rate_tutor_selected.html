@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tutor Rating</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
+</head>
+<style>
+    body {
+        font-family: 'DM Sans';
+        background-color: white;
+    }
+
+    .widget {
+        background-color: #4B4E6D;
+    }
+
+    .inv {
+        display: none;
+    }
+
+    .footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: #4B4E6D;
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+</style>
+
+<div style="background-color: #4B4E6D;">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <i class="ph ph-graduation-cap" style="color: white; margin-right: 10px; font-size: 45px;"></i>
+        <a class="navbar-brand" href="/KL/student/" style="color: white; font-size: 32px;">KnowledgeLink</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="btn btn-warning" href="/KL/student/" style="margin-left: 10px;">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="btn btn-warning" style="background-color: #C89604; font-weight: bold; margin-left: 10px;" href="/KL/student/search">Search</a>
+              </li>
+                <li class="nav-item">
+                <a class="btn btn-warning" href="{% url 'account_logout' %}" style="margin-left: 10px;">Logout</a>
+              </li>
+            </ul>
+          </div>
+      </nav>
+</div>
+
+<body style="background-color: #EDEDED;">
+    <div style="padding-top: 2em;">
+        <div class="container">
+            <form action="{%url 'KnowledgeLink:rate_tutor' %}" method="POST">
+                {% csrf_token %}
+                <h4 style="margin-top: 5px;"><strong>You are rating <span style="color: #4B4E6D;">{{ tutor.username }}</span>.</strong></h4>
+                <input type="hidden" id="tutor" name="tutor" value={{ tutor.id }}>
+                <h5 style="padding-top: 15px;"><strong>Please like or dislike this tutor</strong></h5>
+                <input type="hidden" id="vote_type" name="vote_type" value="">
+                <br>
+                <button type="submit" style="margin-left: 5px;" onclick=setVoteTypeLike()>
+                    <i class="ph-thin ph-thumbs-up" style="font-size: 50px; color: black;"></i>
+                </button>
+                <button type="submit" style="margin-left: 5px;" onclick=setVoteTypeDislike()>
+                    <i class="ph-thin ph-thumbs-down" style="font-size: 50px; color: black;"></i>
+                </button>
+                {% if error %}
+                    teo
+                {% endif %}
+            </form>
+        </div>
+    </div>
+
+    <div class="footer" style="background-color: #4B4E6D; color: white; padding: 15px; position: absolute; bottom: 0; width: 100%;">
+        <center>
+          <p>© 2023 Copyright: Group A-19</p>
+        </center>
+    </div>
+      
+    <script>
+        function setVoteTypeLike() {
+            document.getElementById("vote_type").value = "upvote";
+        }
+
+        function setVoteTypeDislike(){
+            document.getElementById("vote_type").value = "downvote";
+        }
+
+    </script>
+
+</body>
+
+</html>

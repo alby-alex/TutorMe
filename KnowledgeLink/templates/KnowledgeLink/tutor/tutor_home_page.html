@@ -1,0 +1,286 @@
+<!--{% load socialaccount %}-->
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Tutor Home Page</title>-->
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">-->
+<!--    <script src="https://unpkg.com/@phosphor-icons/web"></script>-->
+<!--    <link rel="preconnect" href="https://fonts.googleapis.com">-->
+<!--    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
+<!--    <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">-->
+<!--</head>-->
+
+
+<!--&lt;!&ndash; nav bar&ndash;&gt;-->
+
+<!--<body style="font-family: 'DM Sans';">-->
+<!--    <div style="background-color: #4B4E6D;">-->
+<!--        <nav class="navbar navbar-expand-lg navbar-light">-->
+<!--            <i class="ph ph-graduation-cap" style="color: white; margin-right: 10px; font-size: 45px;"></i>-->
+<!--            <a class="navbar-brand" href="#" style="color: white; font-size: 32px;">KnowledgeLink</a>-->
+<!--            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"-->
+<!--                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--                <span class="navbar-toggler-icon"></span>-->
+<!--            </button>-->
+<!--            <div class="collapse navbar-collapse" id="navbarNav">-->
+<!--                <ul class="navbar-nav ml-auto">-->
+<!--                  {% if user.is_authenticated %}-->
+<!--                  <li class = "nav-item">-->
+<!--                  <a class="btn btn-warning" href = "/KL/tutor/profile">Profile</a>-->
+<!--                  </li>-->
+<!--                  <li class = "nav-item">-->
+<!--                  <a class="btn btn-warning" href = "/KL/tutor/course_search">Search</a>-->
+<!--                  </li>-->
+<!--                  <li class="nav-item">-->
+<!--                    <a class="btn btn-warning" href="{% url 'account_logout' %}">Logout</a>-->
+<!--                  </li>-->
+<!--                  {% else %}-->
+<!--                  <li class="nav-item">-->
+<!--                    <a class="btn btn-warning" href="{% provider_login_url 'google' %}">Login with Google</a>-->
+<!--                  </li>-->
+<!--                  {% endif %}-->
+<!--                </ul>-->
+<!--              </div>-->
+
+<!--        </nav>-->
+
+<!--        &lt;!&ndash; lower layout &ndash;&gt;-->
+<!--        <div style="background-color: #EDEDED;">-->
+<!--            <div class="container">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-4">-->
+<!--                        <div class="mt-3" style="padding: 15px; border-radius: 25px;">-->
+<!--                            <div class="row">-->
+<!--                            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" style="width: 150px; align-items: right; border-radius: 25px;">-->
+<!--                        </div>-->
+<!--                        <div class="row">-->
+<!--                            <h4 style="text-align: center; padding-top: 5px;">Name</h4>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    </div>-->
+<!--            <div class="col-8" style="padding: 10px;">-->
+<!--                <div class="mt-3" style="background-color: #4B4E6D; padding: 15px; border-radius: 25px;">-->
+<!--                    <h3 style="color: #FFF;">Bio</h3>-->
+<!--                    <p style="color: white;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod-->
+<!--                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud-->
+<!--                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in-->
+<!--                        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint-->
+<!--                        occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.-->
+<!--                    </p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="row" style="padding-bottom: 10px;">-->
+<!--            <div class="col" style="padding: 10px;">-->
+<!--                <div style="background-color: #4B4E6D; padding: 10px; height: 200px; border-radius: 25px;">-->
+<!--                    <h3 style="color: #FFF;">Courses:</h3>-->
+<!--                    <p style="color: white;">-->
+<!--                    <ul style="color: white;">-->
+<!--                        <li></li>-->
+<!--                        <li></li>-->
+<!--                        <li></li>-->
+<!--                    </ul>-->
+<!--                    </p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col" style="padding: 10px;">-->
+<!--                <div style="background-color: #4B4E6D; padding: 10px; height: 200px; border-radius: 25px;">-->
+<!--                    <h3 style="color: #FFF;">Availability:</h3>-->
+<!--                    <p style="color: white;">-->
+<!--                    <ul style="color: white;">-->
+<!--                        <li></li>-->
+<!--                    </ul>-->
+<!--                    </p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; footer&ndash;&gt;-->
+<!--    <div class="footer" style="background-color: #4B4E6D; color: white; padding: 15px;">-->
+<!--        <center>-->
+<!--            <p>© 2023 Copyright: Group A-19</p>-->
+<!--        </center>-->
+<!--    </div>-->
+
+<!--    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"-->
+<!--        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"-->
+<!--        crossorigin="anonymous"></script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"-->
+<!--        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"-->
+<!--        crossorigin="anonymous"></script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"-->
+<!--        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"-->
+<!--        crossorigin="anonymous"></script>-->
+<!--</body>-->
+
+<!--</html>-->
+{% load socialaccount %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutor Home Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
+</head>
+
+<style>
+    #scrollableContent {
+       height: 275px;
+       margin: 0em;
+       overflow-y: auto;
+    }
+    .footer {
+      position: bottom;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: #4B4E6D;
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+</style>
+
+
+<body style="font-family: 'DM Sans';">
+    <div style="background-color: #4B4E6D;">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <i class="ph ph-graduation-cap" style="color: white; margin-right: 10px; font-size: 45px;"></i>
+            <a class="navbar-brand" href="#" style="color: white; font-size: 32px;">KnowledgeLink</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                  {% if user.is_authenticated %}
+                  <li class="nav-item">
+                    <a class="btn btn-warning" href="/KL/tutor/" style="background-color: #C89604; font-weight: bold;">Home</a>
+                  </li>      
+                  <li class = "nav-item">
+                  <a class="btn btn-warning" href ="/KL/tutor/profile" style="margin-left: 10px;">Profile</a>
+                  </li>
+                  <li class = "nav-item">
+                  <a class="btn btn-warning" href ="/KL/tutor/course_search" style="margin-left: 10px;">Search</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="btn btn-warning" href="{% url 'account_logout' %}" style="margin-left: 10px;">Logout</a>
+                  </li>
+                  {% else %}
+                  <li class="nav-item">
+                    <a class="btn btn-warning" href="{% provider_login_url 'google' %}" style="margin-left: 10px;">Login with Google</a>
+                  </li>
+                  {% endif %}
+                </ul>
+              </div>
+        </nav>
+
+        <div style="background-color: #EDEDED; padding-top: 20px">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mt-3" style="background-color: #4B4E6D; padding: 15px; border-radius: 25px;">
+                            <h3 style="color: #FFF;">Hello, {{ tutor_name }}!</h3>
+                        </div>
+                         <div class="mt-3" style="background-color: #4B4E6D; padding: 15px; border-radius: 25px;">
+                            <h3 style="color: #FFF;">Ratings</h3>
+                            <div class="row">
+                                <div class="col-6 col-md-4" style="display: flex;">
+                                     <p style="font-size: 40px; padding-left: inherit; padding-right: inherit; color: white;">{{ tutor_upvotes }}</p>
+                                     <i class="ph-thin ph-thumbs-up" style="font-size: 50px; color: white;"></i>
+                                </div>
+                                 <div class="col-6 col-md-4" style="display: flex;">
+                                     <p style="font-size: 40px; padding-left: inherit; padding-right: inherit; color: white;">{{ tutor_downvotes }}</p>
+                                     <i class="ph-thin ph-thumbs-down" style="font-size: 50px; color: white;"></i>
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-8">
+                        <div id = "scrollableContent" class="mt-3" style="background-color: #4B4E6D; padding: 15px; border-radius: 25px; height: 225px;">
+                            <h3 style="color: #FFF;">Pending Requests</h3>
+                                <ul style="color: white; list-style-type: none;">
+
+                                    {% if pending_length == 0%}
+                                        You don't have any pending appointments!
+
+                                    {% else %}
+                                    {% for appointment in pending_appointments %}
+
+                                        <div class="mt-3" style="background-color: #4B4E6D; padding: 15px; border-radius: 25px;">
+                                          <li>
+                                            <strong>Student Username:</strong> {{appointment.student.username}} <br>
+                                            <strong>Course:</strong> {{appointment.course.course_name}} <br>
+                                            <strong>Day:</strong> {{appointment.day}} <br>
+                                            <strong>Time:</strong> {{appointment.time}} <br>
+                                             <strong><a href = "{%url 'KnowledgeLink:appointment_decision' appointment_id=appointment.id %}">Approve/Reject</a></strong>
+                                          </li>
+                                        </div>
+
+                                    {% endfor %}
+                                    {% endif %}
+                                </ul>
+                        </div>
+                        <div id = "scrollableContent" class="mt-3" style="background-color: #4B4E6D; padding: 15px; border-radius: 25px; height: 225px;">
+                            <h3 style="color: #FFF;">Your Appointments <a class="btn btn-warning" href ="{%url 'KnowledgeLink:get_calendar_tutor' %}">Download Schedule (.ical)</a></h3>
+                                <ul style="color: white; list-style-type: none;">
+                                    {% if active_length == 0%}
+                                        You don't have any appointments yet!
+
+                                    {% else %}
+                                    {% for appointment in active_appointments %}
+                                    
+                                        <div class="mt-3" style="background-color: #4B4E6D; padding: 5px; border-radius: 25px;">
+                                          <li>
+                                            <strong>Student Name:</strong> {{appointment.student.username}} <br>
+                                            <strong>Course:</strong> {{appointment.course.course_name}} <br>
+                                            <strong>Day:</strong> {{appointment.day}} <br>
+                                            <strong>Time:</strong> {{appointment.time}} <br>
+                                          </li>
+                                        </div>
+                                    
+                                    {% endfor %}
+                                    {% endif %}
+                                </ul>
+                        </div>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+    </div>
+    <div class="footer" style="background-color: #4B4E6D; color: white; padding: 15px;">
+    <center>
+      <p>© 2023 Copyright: Group A-19</p>
+    </center>
+  </div>
+
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+
+
+
+

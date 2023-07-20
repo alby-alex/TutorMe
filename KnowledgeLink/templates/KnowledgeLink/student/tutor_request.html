@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tutor Request</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
+</head>
+<style>
+    body {
+        font-family: 'DM Sans';
+        background-color: white;
+        min-height: 120vh;
+        position: relative;
+    }
+
+    .widget {
+        background-color: #4B4E6D;
+    }
+
+    .inv {
+        display: none;
+    }
+
+    .footer {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: #4B4E6D;
+      color: white;
+      text-align: center;
+      padding: 15px;
+  }
+    #scrollableContent {
+       height: 30vh;
+       margin: 0em;
+       overflow-y: auto;
+    }
+</style>
+
+<div style="background-color: #4B4E6D;">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <i class="ph ph-graduation-cap" style="color: white; margin-right: 10px; font-size: 45px;"></i>
+        <a class="navbar-brand" href="/KL/student/" style="color: white; font-size: 32px;">KnowledgeLink</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="btn btn-warning" href="/KL/student/" style="margin-left: 10px;">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="btn btn-warning" style="background-color: #C89604; font-weight: bold; margin-left: 10px;" href="/KL/student/search">Search</a>
+              </li>
+                <li class="nav-item">
+                <a class="btn btn-warning" href="{% url 'account_logout' %}" style="margin-left: 10px;">Logout</a>
+              </li>
+            </ul>
+          </div>
+      </nav>
+</div>
+
+<body style="background-color: #EDEDED;">
+    <div style="padding-top: 2em;">
+        <div class="container">
+            <form action="{%url 'KnowledgeLink:appointment' %}" method="POST">
+                {% csrf_token %}
+                <h4 style="margin-top: 5px;"><strong>You are requesting <span style="color: #4B4E6D;">{{ tutor.username }}</span>.</strong></h4>
+                <input type="hidden" id="tutor" name="tutor" value={{ tutor.id }}>
+                <h5 style="padding-top: 15px;"><strong>What class are you requesting for?</strong></h5>
+                <div id = "scrollableContent" class="mt-3" style="background-color: #FFF; padding: 15px; border-radius: 25px;">
+                {% for c in tutor_courses %}
+                    <input type="radio" id="tutor_courses{{ forloop.counter }}" name="course" value={{c.id}}>
+                    <label for="times{{ forloop.counter }}" style="padding-top: 10px; padding-left: 2px;">{{ c.course_name }} </label>
+                    <br>
+                    {% endfor %}
+                </div>
+                <label style="padding-top: 15px;"> Select a day: </label>
+                <select id="target" onchange=getOption()>
+                    <option value="">Select...
+                    </option>
+                    <option value="Sunday"> Sunday
+                    </option>
+                    <option value="Monday"> Monday
+                    </option>
+                    <option value="Tuesday"> Tuesday
+                    </option>
+                    <option value="Wednesday"> Wednesday
+                    </option>
+                    <option value="Thursday"> Thursday
+                    </option>
+                    <option value="Friday"> Friday
+                    </option>
+                    <option value="Saturday"> Saturday
+                    </option>
+                </select>
+                <input type="hidden" id="day" name="selected_day">
+
+                <div id="Sunday" class="inv">
+                    {% for t in tutor_sunday_availability %}
+                    <input type="radio" id="times{{ forloop.counter }}" name="time" value={{t}}>
+                    <label for="times{{ forloop.counter }}">{{ t }} </label>
+                    {% endfor %}
+                </div>
+
+                <div id="Monday" class="inv">
+                    {% for t in tutor_monday_availability %}
+                    <input type="radio" id="times{{ forloop.counter }}" name="time" value={{t}}>
+                    <label for="times{{ forloop.counter }}">{{ t }} </label>
+                    {% endfor %}
+                </div>
+
+                <div id="Tuesday" class="inv">
+                    {% for t in tutor_tuesday_availability %}
+                    <input type="radio" id="times{{ forloop.counter }}" name="time" value={{t}}>
+                    <label for="times{{ forloop.counter }}">{{ t }} </label>
+                    {% endfor %}
+                </div>
+
+                <div id="Wednesday" class="inv">
+                    {% for t in tutor_wednesday_availability %}
+                    <input type="radio" id="times{{ forloop.counter }}" name="time" value={{t}}>
+                    <label for="times{{ forloop.counter }}">{{ t }} </label>
+                    {% endfor %}
+                </div>
+
+                <div id="Thursday" class="inv">
+                    {% for t in tutor_thursday_availability %}
+                    <input type="radio" id="times{{ forloop.counter }}" name="time" value={{t}}>
+                    <label for="times{{ forloop.counter }}">{{ t }} </label>
+                    {% endfor %}
+                </div>
+
+                <div id="Friday" class="inv">
+                    {% for t in tutor_friday_availability %}
+                    <input type="radio" id="times{{ forloop.counter }}" name="time" value={{t}}>
+                    <label for="times{{ forloop.counter }}">{{ t }} </label>
+                    {% endfor %}
+                </div>
+
+                <div id="Saturday" class="inv">
+                    {% for t in tutor_saturday_availability %}
+                    <input type="radio" id="times{{ forloop.counter }}" name="time" value={{t}}>
+                    <label for="times{{ forloop.counter }}">{{ t }} </label>
+                    {% endfor %}
+                </div>
+                <br>
+                <button type="submit" class="btn btn-warning" style="margin-left: 5px;" onclick=checkFields()>Submit
+                    Request
+                </button>
+                {% if error %}
+                    teo
+                {% endif %}
+            </form>
+        </div>
+    </div>
+
+    <div class="footer" style="background-color: #4B4E6D; color: white; padding: 15px; position: absolute; bottom: 0; width: 100%;">
+        <center>
+          <p>© 2023 Copyright: Group A-19</p>
+        </center>
+    </div>
+      
+    <script>
+        /***
+         * This source was used to change which availability times would be displayed given a day from the dropdown menu
+         * Title: Change the content of a div based on selection from dropdown menu
+         * Author: Ivan Ivanov
+         * Date: 5/2/2023
+         * Code version: n/a
+         * URL: https://stackoverflow.com/questions/6164507/change-the-content-of-a-div-based-on-selection-from-dropdown-menu
+         * Software License: n/a
+         */
+        document
+            .getElementById('target')
+            .addEventListener('change', function () {
+                'use strict';
+
+                var vis = document.querySelector('.vis'),
+                    target = document.getElementById(this.value);
+                if (vis !== null) {
+                    vis.className = 'inv';
+                }
+                if (target !== null) {
+                    target.className = 'vis';
+                    resetVals();
+                }
+            });
+        function resetVals() {
+            $("input:radio").each(function () {
+                $(this)[0].checked = false;
+            });
+        }
+        function getOption() {
+            var select = document.getElementById('target');
+            var option = select.options[select.selectedIndex];
+
+            document.getElementById('day').value = option.value;
+        }
+    </script>
+
+</body>
+
+</html>

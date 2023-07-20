@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Appointment</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
+</head>
+<style>
+    body {
+      font-family: 'DM Sans';
+      background-color: #EDEDED;
+    }
+
+    .widget {
+      background-color: #4B4E6D;
+    }
+
+
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #4B4E6D;
+        color: white;
+        text-align: center;
+        padding: 15px;
+    }
+    
+</style>
+
+
+
+<body>
+    <div style="background-color: #4B4E6D;">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <i class="ph ph-graduation-cap" style="color: white; margin-right: 10px; font-size: 45px;"></i>
+      <a class="navbar-brand" href="{% url 'KnowledgeLink:home_page' %}" style="color: white; font-size: 32px;">KnowledgeLink</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="btn btn-warning" href="/KL/tutor/">Home</a>
+          </li>      
+          <li class="nav-item">
+              <a class="btn btn-warning" href="/KL/tutor/profile" style="margin-left: 10px;">Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-warning" href="/KL/tutor/course_search" style="margin-left: 10px;">Search</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-warning" href="{% url 'account_logout' %}"  style="margin-left: 10px;">Logout</a>
+            </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+
+    <div style="background-color: #EDEDED; height: 34em; padding-top: 2em;">
+        <div class="container">
+            <h2 class="text-center" style="color: black; margin-bottom: 15px; text-decoration:underline;"> Confirm Appointment?</h2>
+
+            <div style="background-color: #FFFFFF; border-radius: 10px; padding-left: 30px; padding-top: 5px; padding-bottom: 10px">
+
+                <h3 class="text-left" style="color: #000; margin-bottom: 15px;"> {{ appointment.student.username }} is requesting a tutor appointment on {{ appointment.day }} at {{ appointment.time }} for {{ appointment.course.course_name }}.</h3>
+
+                <form action="{%url 'KnowledgeLink:approve_appointment' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" id="appointment" name="appointment" value={{ appointment.id }}>
+
+                    <button input="submit" class="btn btn-warning rounded" style="margin-top: 10px;">Yes</button>
+                </form>
+
+                 <form action="{%url 'KnowledgeLink:reject_appointment' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" id="appointment" name="appointment" value={{ appointment.id }}>
+
+                    <button input="submit" class="btn btn-warning rounded" style="margin-top: 10px;">No</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+<div class="footer" style="background-color: #4B4E6D; color: white; padding: 15px;">
+    <center>
+        <p>© 2023 Copyright: Group A-19</p>
+    </center>
+</div>
+
+</html>

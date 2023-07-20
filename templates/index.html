@@ -1,0 +1,116 @@
+{#{%  load socialaccount %}#}
+{#<html>#}
+{#<body>#}
+{#<h1>KnowledgeLink</h1>#}
+{#{% if user.is_authenticated %}#}
+{#    <p>Welcome, you are logged in as {{ user.username }}</p>#}
+{#{% else %}#}
+{#    <a href="{% provider_login_url 'google' %}">Login with Google</a>#}
+{#{% endif %}#}
+{#</body>#}
+{#</html>#}
+
+{% load socialaccount %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KnowledgeLink</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
+</head>
+
+<!-- nav bar-->
+<body style="font-family: 'DM Sans';">
+  <div style="background-color: #4B4E6D;">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <i class="ph ph-graduation-cap" style="color: white; margin-right: 10px; font-size: 45px;"></i>
+      <a class="navbar-brand" href="#" style="color: white; font-size: 32px;">KnowledgeLink</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="btn btn-warning" style="background-color: #C89604; font-weight: bold;" href="/KL/home">Home Page</a>
+          </li>
+          <li class="nav-item">
+            <p class="nav-link" style="color: white;">Welcome, you are logged in as {{ user.username }}</p>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn btn-warning" href="{% url 'account_logout' %}">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="btn btn-warning" href="{% provider_login_url 'google' %}">Login with Google</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+
+    <!-- middle layout -->
+    <div class="container mt-5" style="height: 25em;">
+      <section class="section mt-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-8" style="padding: 6em 2em 0 0;">
+                <h3 style="color: white; font-size: 32px;">Connecting minds,<br>linking knowledge</h3>
+                <br>
+                <p style="color: white; font-size: 24px">Join our community and start learning today.</p>
+                <a href="{% provider_login_url 'google' %}" class="btn btn-warning">Get Started</a>
+            </div>
+            <div class="col-md-4">
+                <img src="https://i.imgur.com/kK6q4Q0.png" style="height: 400px; padding-left: 2em">
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+<!-- lower layout -->
+  <div style="background-color: #EDEDED; height: 22em; padding-top: 2em;">
+    <div class="container" style="display: flex; flex-direction: row; flex-wrap: wrap; width: 100%; text-align: center;">
+        <div class="col" style="flex: 33.33%;">
+          <h3 style="padding-bottom: 15%;"><strong>Register as a student or a tutor</strong></h3>
+          <i class="ph-thin ph-desktop center" style="font-size: 150px;"></i>
+        </div>
+        <div class="col" style="flex: 33.33%;"> 
+          <h3 style="padding-bottom: 15%;"><strong>Search through tutor profiles</strong></h3>
+          <i class="ph-thin ph-cursor" style="font-size: 150px;"></i>
+        </div>
+        <div class="col" style="flex: 33.33%;">
+          <h3 style="padding-bottom: 15%;"><strong>Make or approve tutor requests</strong></h3>
+          <i class="ph-thin ph-pencil-simple-line" style="font-size: 150px;"></i>
+        </div>
+    </div>
+  </div>
+
+
+  <!-- footer-->
+  <div class="footer" style="background-color: #4B4E6D; color: white; padding: 15px;">
+    <center>
+      <p>© 2023 Copyright: Group A-19</p>
+    </center>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

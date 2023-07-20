@@ -1,0 +1,121 @@
+{% load socialaccount %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Page</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'DM Sans';
+      background-color: #EDEDED;
+    }
+
+    .widget {
+      background-color: #4B4E6D;
+    }
+  </style>
+</head>
+
+<body>
+  <div style="background-color: #4B4E6D;">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <i class="ph ph-graduation-cap" style="color: white; margin-right: 10px; font-size: 45px;"></i>
+      <a class="navbar-brand" href="#" style="color: white; font-size: 32px;">KnowledgeLink</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="btn btn-warning" style="background-color: #C89604; font-weight: bold;" href="/KL/student/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-warning" style="margin-left: 10px;" href="/KL/student/search">Search</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-warning" href="{% url 'account_logout' %}" style="margin-left: 10px;">Logout</a>
+          </li>
+        </ul>
+      </div>
+
+    </nav>
+  </div>
+
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card text-white widget mb-3">
+          <div class="card-body">
+            <h5 class="card-title">Hello, {{student_name}}!</h5>
+          </div>
+        </div>
+        <div class="card text-white widget mb-3">
+          <div class="card-body">
+            <h5 class="card-title">Pending Tutor Requests</h5>
+                {% for appointment in pending_appointments %}
+                  <li>
+                    {{appointment.tutor.username}} - {{appointment.course.course_name}}</a>
+                  </li>
+                {% endfor %}
+
+          <form class="form-inline" action="/KL/student/search" method="get">
+            <button class="btn btn-warning" type="submit" style="margin-top: 10px;">Search for Tutors</button>
+
+          </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card text-white widget mb-3">
+          <div class="card-body">
+            <h5 class="card-title">Your Appointments <a class="btn btn-warning" href ="{%url 'KnowledgeLink:get_calendar_student' %}">Download Schedule (.ical)</a> </h5>
+              <ul style="list-style-type: none">
+
+                {% for appointment in active_appointments %}
+                  <li>
+                    {{appointment.tutor.username}} - {{appointment.course.course_mnemonic}} {{appointment.course.course_number}} - {{appointment.day}} - {{appointment.time}}
+                  </li>
+                {% endfor %}
+              </ul>
+          </div>
+        </div>
+        <!-- Logic for searching for classes: -->
+        <div class="card text-white bg-primary mb-3 widget" style="background-color: #4B4E6D !important;">
+        <div class="card-body">
+          <h5 class="card-title">Rate a Tutor!</h5>
+          <a class="btn btn-warning" style="margin-left: 10px;" href="/KL/student/rate_tutors_select">Rate</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- footer -->
+    <div class="footer" style="background-color: #4B4E6D; color: white; padding: 15px; position: absolute; bottom: 0; width: 100%;">
+    <center>
+      <p>© 2023 Copyright: Group A-19</p>
+    </center>
+  </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sFw269wKe0JX8"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"></script>
+  </div>
+</body>
+</html>
+
+

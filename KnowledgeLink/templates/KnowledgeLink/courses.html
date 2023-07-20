@@ -1,0 +1,150 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Courses</title>-->
+<!--</head>-->
+
+<!--<a href = "/KL/tutor/">Home</a>-->
+<!--<a href = "/KL/tutor/profile">Profile</a>-->
+
+<!--<body>-->
+<!--{% block content %}-->
+<!--<form method="GET">-->
+<!--    <input type="text" name="name" placeholder="Course Name" class="text-center">-->
+<!--    <input type="text" name="number" placeholder="Course Number" class="text-center">-->
+<!--    <input type="text" name="mnemonic" placeholder="Course Mnemonic" class="text-center">-->
+<!--    <button type="submit">SEARCH COURSE</button>-->
+<!--</form>-->
+
+<!--<form action="{%url 'KnowledgeLink:select_tutor' %}" method="POST">-->
+<!--    {% csrf_token %}-->
+<!--    {% for c in course %}-->
+<!--        <input type="checkbox" id="course{{ forloop.counter }}" name="course" value={{c.id}}>-->
+<!--        <label for="course{{ forloop.counter }}">{{ c.course_name }}</label>-->
+<!--    <br>-->
+<!--    {% endfor %}-->
+<!--    <br>-->
+<!--    <button type="submit">ADD COURSE</button>-->
+<!--</form>-->
+<!--{% endblock %}-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
+    <style>
+        #scrollableContent {
+           height: 40vh;
+           margin: 0em;
+           overflow-y: auto;
+        }
+
+        body {
+            position: relative;
+            font-family: 'DM Sans';
+            background-color: white;
+            min-height: 140vh;
+        }
+        .footer {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #4B4E6D;
+            color: white;
+            text-align: center;
+            padding: 15px;
+          }
+    </style>
+</head>
+<body style="background-color: #EDEDED; font-family:'DM Sans';">
+    <div style="background-color: #4B4E6D;">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <i class="ph ph-graduation-cap" style="color: white; margin-right: 10px; font-size: 45px;"></i>
+            <a class="navbar-brand" href="{% url 'KnowledgeLink:home_page' %}" style="color: white; font-size: 32px;">KnowledgeLink</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="btn btn-warning" href="/KL/tutor/">Home</a>
+                      </li>      
+                    <li class="nav-item">
+                        <a class="btn btn-warning" style="margin-left: 10px;" href="/KL/tutor/profile">Profile</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="btn btn-warning" href="/KL/tutor/course_search" style="background-color: #C89604; font-weight: bold; margin-left: 10px;">Search</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="btn btn-warning" href="{% url 'account_logout' %}"  style="margin-left: 10px;">Logout</a>
+                      </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="mb-4">Search Courses</h1>
+                <form method="GET" class="form-inline mb-5">
+                    <input type="text" name="mnemonic" placeholder="Course Mnemonic" class="form-control mr-2">
+                    <input type="text" name="number" placeholder="Course Number" class="form-control mr-2">
+                    <input type="text" name="name" placeholder="Course Name" class="form-control mr-2">
+                    <button type="submit" class="btn btn-warning">Search Course</button>
+                </form>
+            <div id = "scrollableContent" class="mt-3" style="background-color: #FFFFFF; padding: 15px; border-radius: 25px;">
+                <h2 class="mb-4">Available Courses</h2>
+                    {% if flag == True %}
+                        Enter in parameters then press Search Course!
+                    {% endif %}
+                    {% if error == True %}
+                        Error: Couldn't find any classes with those parameters!
+                    {% endif %}
+                <form action="{%url 'KnowledgeLink:select_tutor' %}" method="POST">
+                    {% csrf_token %}
+                    {% for c in course %}
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="course{{ forloop.counter }}" name="course" value={{c.id}}>
+                        <label class="form-check-label" for="course{{ forloop.counter }}">{{ c.course_mnemonic }} {{ c.course_number }} {{ c.course_name }}</label>
+                    </div>
+                    {% endfor %}
+                    </div>
+                        <div class="card-footer" style="border-color: #EDEDED; background-color: #EDEDED;">
+                            <button type="submit" class="btn btn-warning">Add course</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    <div class="footer" style="background-color: #4B4E6D; color: white; padding: 15px; position: absolute;">
+    <center>
+      <p>© 2023 Copyright: Group A-19</p>
+    </center>
+  </div>
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sFw269wKe0JX8"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+

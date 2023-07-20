@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Search for Tutors</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
+</head>
+
+<style>
+    body {
+      min-height: 120vh;
+      position: relative;
+      font-family: 'DM Sans';
+      background-color: #EDEDED;
+    }
+
+    .widget {
+      background-color: #4B4E6D;
+    }
+
+
+    .footer {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #4B4E6D;
+        color: white;
+        text-align: center;
+        padding: 15px;
+    }
+    #scrollableContent {
+       height: 275px;
+       margin: 0em;
+       overflow-y: auto;
+   }
+</style>
+
+<body>
+    <div style="background-color: #4B4E6D;">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <i class="ph ph-graduation-cap" style="color: white; margin-right: 10px; font-size: 45px;"></i>
+        <a class="navbar-brand" href="/KL/student/" style="color: white; font-size: 32px;">KnowledgeLink</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="btn btn-warning" href="/KL/student/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-warning" style="background-color: #C89604; font-weight: bold; margin-left: 10px;" href="/KL/student/search">Search</a>
+            </li>
+              <li class="nav-item">
+              <a class="btn btn-warning" href="{% url 'account_logout' %}" style="margin-left: 10px;">Logout</a>
+            </li>
+          </ul>
+        </div>
+        </nav>
+    </div>
+
+    {% block content %}
+    <div style="background-color: #EDEDED; padding-top: 2em;">
+        <div class="container">
+            <h1 class="mb-4">Search For a Tutor</h1>
+            <form method="GET">
+                <input type="text" name="mnemonic" placeholder="Course Mnemonic"
+                    class="text-center border border-dark rounded" style="padding: 5px; margin: 3px;">
+                <input type="text" name="number" placeholder="Course Number"
+                    class="text-center border border-dark rounded" style="padding: 5px; margin: 3px;">
+                <input type="text" name="name" placeholder="Course Name" class="text-center border border-dark rounded"
+                    style="padding: 5px; margin: 3px;">
+                <button type="submit" class="btn btn-warning" style="margin-left: 10px;">Search for Tutors</button>
+            </form>
+            <br>
+            <div id = "scrollableContent" style="background-color: #FFFFFF; border-radius: 10px; padding-left: 10px; padding-top: 5px; padding-right: 10px; border: solid; border-width: 1px;">
+                <h2 class="text-left" style="color: #000; margin-bottom: 15px; text-decoration: underline;">Tutors:</h2>
+                    {% if class_error == True %}
+                        Error: Couldn't find any classes with those parameters!
+                    {% endif %}
+                    {% if tutor_error == True%}
+                        There aren't any available tutors for the given parameters!
+                    {% endif %}
+                    {% if button_error == True%}
+                        Error: No selection was made!
+                    {% endif %}
+                <form action="{%url 'KnowledgeLink:request' %}" method="POST">
+                        {% csrf_token %}
+                        {% for t in tutors %}
+                            <div class="cardbody" style="background-color: #EDEDED; border-radius:15px; padding: 10px;">
+                                <input required type="radio" id="course{{ forloop.counter }}" name="tutor" value={{t.id}}>
+                                <label for="course{{ forloop.counter }}" style="padding-top: 5px; padding-left: 2px;">{{ t.username }}</label>
+                                <div>
+                                    Hourly Rate: ${{t.hourly_rate}}
+                                </div>
+                                <div>
+                                    Bio: {{t.bio}}
+                                </div>
+                                <div>
+                                    Tutor upvotes: {{t.upvotes}}
+                                    <br>
+                                    Tutor downvotes: {{t.downvotes}}
+                                </div>
+                            </div>
+                        <br>
+                        {% endfor %}
+                    <br>
+                   
+            </div>
+            <br>
+            <button id = "sbmt" type = "submit" class="btn btn-warning">Select Tutor</button>
+            </form>
+        </div>
+    </div>
+    {% endblock %}
+
+    <div class="footer" style="background-color: #4B4E6D; color: white; padding: 15px; bottom:0; width: 100%;">
+        <center>
+            <p>© 2023 Copyright: Group A-19</p>
+        </center>
+    </div>
+
+</body>
+   <script>
+        const element = document.getElementById('sbmt')
+        element.addEventListener("click",display())
+
+      function display() {
+        event.preventDefault();
+      }
+   </script>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Availability</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
+</head>
+
+<style>
+    body {
+        position: relative;
+        font-family: 'DM Sans';
+        background-color: white;
+        min-height: 140vh;
+    }
+    .footer {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: #4B4E6D;
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+
+    tr {
+        display: block;
+        float: left;
+    }
+    th, td {
+        display: block;
+    }
+
+    .center {
+      margin: auto;
+      width: 50%;
+      border: 3px solid green;
+      padding: 10px;
+    }
+</style>
+<body>
+<div style="background-color: #4B4E6D;">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <i class="ph ph-graduation-cap" style="color: white; margin-right: 10px; font-size: 45px;"></i>
+        <a class="navbar-brand" href="{% url 'KnowledgeLink:home_page' %}"
+            style="color: white; font-size: 32px;">KnowledgeLink</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="btn btn-warning" href="/KL/tutor/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-warning" style="margin-left: 10px;" href="/KL/tutor/profile">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-warning" href="/KL/tutor/course_search" style="margin-left: 10px;">Search</a>
+                  </li>
+            <li class="nav-item">
+                    <a class="btn btn-warning" href="{% url 'account_logout' %}" style="margin-left: 10px;">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+{% block content %}
+{% load mathfilters %}
+
+<div style="background-color: #EDEDED;">
+<form action="{%url 'KnowledgeLink:set_availability'%}" method="POST" style="margin: auto; width: 55%;">
+    {% csrf_token %}
+    <table class="table">
+        <tbody>
+        <tr>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col">12:00 a.m.</th>
+                <th scope="col">12:30 a.m.</th>
+                <th scope="col">1:00 a.m.</th>
+                <th scope="col">1:30 a.m.</th>
+                <th scope="col">2:00 a.m.</th>
+                <th scope="col">2:30 a.m.</th>
+                <th scope="col">3:00 a.m.</th>
+                <th scope="col">3:30 a.m.</th>
+                <th scope="col">4:00 a.m.</th>
+                <th scope="col">4:30 a.m.</th>
+                <th scope="col">5:00 a.m.</th>
+                <th scope="col">5:30 a.m.</th>
+                <th scope="col">6:00 a.m.</th>
+                <th scope="col">6:30 a.m.</th>
+                <th scope="col">7:00 a.m.</th>
+                <th scope="col">7:30 a.m.</th>
+                <th scope="col">8:00 a.m</th>
+                <th scope="col">8:30 a.m.</th>
+                <th scope="col">9:00 a.m.</th>
+                <th scope="col">9:30 a.m.</th>
+                <th scope="col">10:00 a.m.</th>
+                <th scope="col">10:30 a.m.</th>
+                <th scope="col">11:00 a.m.</th>
+                <th scope="col">11:30 a.m.</th>
+                <th scope="col">12:00 p.m.</th>
+                <th scope="col">12:30 p.m.</th>
+                <th scope="col">1:00 p.m.</th>
+                <th scope="col">1:30 p.m.</th>
+                <th scope="col">2:00 p.m.</th>
+                <th scope="col">2:30 p.m.</th>
+                <th scope="col">3:00 p.m.</th>
+                <th scope="col">3:30 p.m.</th>
+                <th scope="col">4:00 p.m.</th>
+                <th scope="col">4:30 p.m.</th>
+                <th scope="col">5:00 p.m.</th>
+                <th scope="col">5:30 p.m.</th>
+                <th scope="col">6:00 p.m.</th>
+                <th scope="col">6:30 p.m.</th>
+                <th scope="col">7:00 p.m.</th>
+                <th scope="col">7:30 p.m.</th>
+                <th scope="col">8:00 p.m.</th>
+                <th scope="col">8:30 p.m.</th>
+                <th scope="col">9:00 p.m.</th>
+                <th scope="col">9:30 p.m.</th>
+                <th scope="col">10:00 p.m.</th>
+                <th scope="col">10:30 p.m.</th>
+                <th scope="col">11:00 p.m.</th>
+                <th scope="col">11:30 p.m.</th>
+            </tr>
+            <tr>
+                <th scope="row">Sunday</th>
+                {% for index in indexes %}
+                    {% if index in tutor_sunday_availability %}
+                        <td><input type="checkbox" id="Sunday"+str(index) name="sunday" value={{index|div:2}} checked></td>
+                    {% elif index in tutor_sun_appointments %}
+                        <td><input type="checkbox" disabled="disabled" id="Sunday"+str(index) name="sunday" value={{index|div:2}}></td>
+                    {% else %}
+                        <td><input type="checkbox" id="Sunday"+str(index) name="sunday" value={{index|div:2}}></td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            <tr>
+                <th scope="row">Monday</th>
+                {% for index in indexes %}
+                    {% if index in tutor_monday_availability %}
+                        <td><input type="checkbox" id="Monday"+str(index) name="monday" value={{index|div:2}} checked></td>
+                    {% elif index in tutor_mon_appointments %}
+                        <td><input type="checkbox" disabled="disabled" id="Monday"+str(index) name="monday" value={{index|div:2}}></td>
+                    {% else %}
+                        <td><input type="checkbox" id="Monday"+str(index) name="monday" value={{index|div:2}}></td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            <tr>
+                <th scope="row">Tuesday</th>
+                {% for index in indexes %}
+                    {% if index in tutor_tuesday_availability %}
+                        <td><input type="checkbox" id="Tuesday"+str(index) name="tuesday" value={{index|div:2}} checked></td>
+                    {% elif index in tutor_tue_appointments %}
+                        <td><input type="checkbox" disabled="disabled" id="Tuesday"+str(index) name="tuesday" value={{index|div:2}}></td>
+                    {% else %}
+                        <td><input type="checkbox" id="Tuesday"+str(index) name="tuesday" value={{index|div:2}}></td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            <tr>
+                <th scope="row">Wednesday</th>
+                {% for index in indexes %}
+                    {% if index in tutor_wednesday_availability %}
+                        <td><input type="checkbox" id="Wednesday"+str(index) name="wednesday" value={{index|div:2}} checked></td>
+                    {% elif index in tutor_wed_appointments %}
+                        <td><input type="checkbox" disabled="disabled" id="Wednesday"+str(index) name="wednesday" value={{index|div:2}}></td>
+                    {% else %}
+                        <td><input type="checkbox" id="Wednesday"+str(index) name="wednesday" value={{index|div:2}}></td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            <tr>
+                <th scope="row">Thursday</th>
+                {% for index in indexes %}
+                    {% if index in tutor_thursday_availability %}
+                        <td><input type="checkbox" id="Thursday"+str(index) name="thursday" value={{index|div:2}} checked></td>
+                    {% elif index in tutor_thu_appointments %}
+                        <td><input type="checkbox" disabled="disabled" id="Thursday"+str(index) name="thursday" value={{index|div:2}}></td>
+                    {% else %}
+                        <td><input type="checkbox" id="Thursday"+str(index) name="thursday" value={{index|div:2}}></td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            <tr>
+                <th scope="row">Friday</th>
+                {% for index in indexes %}
+                    {% if index in tutor_friday_availability %}
+                        <td><input type="checkbox" id="Friday"+str(index) name="friday" value={{index|div:2}} checked></td>
+                    {% elif index in tutor_fri_appointments %}
+                        <td><input type="checkbox" disabled="disabled" id="Friday"+str(index) name="friday" value={{index|div:2}}></td>
+                    {% else %}
+                        <td><input type="checkbox" id="Friday"+str(index) name="friday" value={{index|div:2}}></td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            <tr>
+                <th scope="row">Saturday</th>
+                {% for index in indexes %}
+                    {% if index in tutor_saturday_availability %}
+                        <td><input type="checkbox" id="Saturday"+str(index) name="saturday" value={{index|div:2}} checked></td>
+                    {% elif index in tutor_sat_appointments %}
+                        <td><input type="checkbox" disabled="disabled" id="Saturday"+str(index) name="saturday" value={{index|div:2}}></td>
+                    {% else %}
+                        <td><input type="checkbox" id="Saturday"+str(index) name="saturday" value={{index|div:2}}></td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-warning" style="margin-left: 5px;" type="submit">Add Times</button>
+    <br>
+    <br>
+    <br>
+    <br>
+</form>
+</div>
+{% endblock %}
+<div class="footer" style="background-color: #4B4E6D; color: white; padding: 5px;">
+    <center>
+        <p>© 2023 Copyright: Group A-19</p>
+    </center>
+</div>
+</body>
+</html>
